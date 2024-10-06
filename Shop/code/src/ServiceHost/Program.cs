@@ -1,4 +1,8 @@
 using ServiceHost;
+using Shop.Domain.Models.Orders;
+using Shop.Domain.Services;
+using Shop.Infrastructure.DomainServices;
+using Shop.Infrastructure.Persistence.Sql.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.AddDatabase();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IUnitOfDiscountCalculatorService, UnitOfDiscountCalculatorService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
