@@ -1,5 +1,6 @@
 using Framework.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Shop.Domain.Models.Categories;
 using Shop.Domain.Models.Customers;
 using Shop.Domain.Models.Orders;
@@ -34,4 +35,3 @@ public class DataBaseContext:DbContext
         }
    
     }
-    
