@@ -1,4 +1,4 @@
-namespace Shop.Domain.Models.Category;
+namespace Shop.Domain.Models.Categories;
 
 public interface ICategoryRepository
 {

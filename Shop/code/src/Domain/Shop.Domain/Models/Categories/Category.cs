@@ -1,6 +1,6 @@
 using Framework.Domain;
 
-namespace Shop.Domain.Models.Category;
+namespace Shop.Domain.Models.Categories;
 
 public class Category(string title, int unitOfDiscountForRepurchase) : AggregateRoot<long>
 {
