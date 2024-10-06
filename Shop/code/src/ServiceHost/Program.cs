@@ -1,8 +1,11 @@
 using ServiceHost;
+using Shop.Application.Contracts;
+using Shop.Application.Services;
 using Shop.Domain.Models.Orders;
 using Shop.Domain.Services;
 using Shop.Infrastructure.DomainServices;
 using Shop.Infrastructure.Persistence.Sql.Repositories;
+using OrderService = Shop.Application.Services.OrderService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.AddDatabase();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IUnitOfDiscountCalculatorService, UnitOfDiscountCalculatorService>();
 var app = builder.Build();
 
