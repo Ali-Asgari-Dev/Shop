@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Infrastructure\Shop.Infrastructure.Persistence.Sql\Shop.Infrastructure.Persistence.Sql.csproj" />
+      <ProjectReference Include="..\Infrastructure\Shop.Infrastructure\Shop.Infrastructure.csproj" />
       <ProjectReference Include="..\Interface\Shop.RestApi\Shop.RestApi.csproj" />
     </ItemGroup>
 

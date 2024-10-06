@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.Infrastructure.Persistence.Sql;
 
@@ -11,9 +12,11 @@ using Shop.Infrastructure.Persistence.Sql;
 namespace Shop.Infrastructure.Persistence.Sql.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241006090135_addorder")]
+    partial class addorder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,8 +146,6 @@ namespace Shop.Infrastructure.Persistence.Sql.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("OrderItem", (string)null);
                 });
 
@@ -177,9 +178,6 @@ namespace Shop.Infrastructure.Persistence.Sql.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<int>("UnitOfDiscountByPrice")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("UpdateDateTime")
                         .HasColumnType("datetime2");
 
@@ -196,15 +194,7 @@ namespace Shop.Infrastructure.Persistence.Sql.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shop.Domain.Models.Products.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Order");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Shop.Domain.Models.Orders.Order", b =>
