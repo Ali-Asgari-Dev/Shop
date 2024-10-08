@@ -3,4 +3,4 @@
 
 [Sequence Diagram](https://github.com/Ali-Asgari-Dev/Shop/blob/main/Sequence%20Diagram.png)
 
-[order-report](https://github.com/Ali-Asgari-Dev/Shop/blob/main/order-report.txt)
+[order-report](https://github.com/Ali-Asgari-Dev/Shop/blob/main/Shop/order-report.txt)
