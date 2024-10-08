@@ -3,7 +3,7 @@ using Shop.Domain.Services;
 
 namespace Shop.Infrastructure.DomainServices;
 
-public class UnitOfDiscountCalculatorService(IOrderRepository orderRepository) : IUnitOfDiscountCalculatorService
+public class UnitOfDiscountCalculatorDomainService(IOrderRepository orderRepository) : IUnitOfDiscountCalculatorDomainService
 {
     public int Calculate(Guid customerId)
     {

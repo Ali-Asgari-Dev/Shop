@@ -2,7 +2,7 @@ using Shop.Domain.Services;
 
 namespace Shop.Domain.Tests.Unit.TestDoubles;
 
-public class StubUnitOfDiscountCalculatorService:IUnitOfDiscountCalculatorService
+public class StubUnitOfDiscountCalculatorDomainService:IUnitOfDiscountCalculatorDomainService
 {
     public int Calculate(Guid customerId)
     {

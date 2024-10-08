@@ -1,4 +1,4 @@
-namespace Shop.Application.Dto.Requests;
+namespace Shop.Application.Dto.Requests.Orders;
 
 public class OrderApplyDiscountRequestDto
 {

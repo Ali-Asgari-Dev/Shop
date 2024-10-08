@@ -11,6 +11,7 @@ public class OrderRepository(DataBaseContext dbContext) : IOrderRepository
             .Include(o=>o.Items).ThenInclude(o=>o.Product)
             .FirstOrDefaultAsync(o=>o.State==OrderState.PaidState()&&o.CustomerId==customerId);
 
+    public async Task<Order?> GetIncludeItemById(Guid id) => await dbContext.Orders.Include(o=>o.Items).FirstOrDefaultAsync(o=>o.Id==id);
     public async Task<Order?> FindById(Guid id) => await dbContext.Orders.FindAsync(id);
 
     public async Task Save()

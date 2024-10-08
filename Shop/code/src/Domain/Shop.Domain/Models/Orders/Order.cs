@@ -22,14 +22,21 @@ public class Order : AggregateRoot<Guid>
     public double TotalPrice => _items.Sum(i => i.Price);
     public double TotalFinalPrice => TotalPrice - ((TotalPrice * UnitOfDiscount) / 100);
 
-    public void ApplyDiscount(IUnitOfDiscountCalculatorService unitOfDiscountCalculatorService)
+    public void ApplyDiscount(IUnitOfDiscountCalculatorDomainService unitOfDiscountCalculatorDomainService)
     {
         if (!State.IsOpen()) throw new BusinessException("وضعیت سفارش برای انجام این کار مجاز نمی باشد");
-        UnitOfDiscount = unitOfDiscountCalculatorService.Calculate(CustomerId);
+        UnitOfDiscount = unitOfDiscountCalculatorDomainService.Calculate(CustomerId);
     }
 
     public void AddItem(long productId, int count, double price)
-    => _items.Add(new (productId,count,price,Id));
+        => _items.Add(new(productId, count, price, Id));
+
+    public void AddItem(IProductDomainService productDomainService, long productId, int count)
+    {
+        var price = productDomainService.PriceById(productId);
+        AddItem(productId, count, price);
+    }
+
 
     public void Paid() => State = OrderState.PaidState();
 }

@@ -12,7 +12,7 @@ public class OrderTests
     public void order_apply_discount()
     {
      var   order = OrderTestFactory.NewWithItem();
-        order.ApplyDiscount(new StubUnitOfDiscountCalculatorService());
+        order.ApplyDiscount(new StubUnitOfDiscountCalculatorDomainService());
         order.TotalFinalPrice.Should().Be(9500);
     }
     
@@ -21,7 +21,7 @@ public class OrderTests
     {
         var order = OrderTestFactory.NewWithItem();
         order.Paid();
-        var act = () => order.ApplyDiscount(new StubUnitOfDiscountCalculatorService());
+        var act = () => order.ApplyDiscount(new StubUnitOfDiscountCalculatorDomainService());
         act.Should().Throw<BusinessException>();
     }
     

@@ -21,7 +21,7 @@ public class OrderTests : PersistTest
         var order = await CreateOrder(customerId,product,1);
         await DbContext.SaveChangesAsync();
         var orderRepository = new OrderRepository(DbContext);
-        var orderService = new OrderService(orderRepository, new UnitOfDiscountCalculatorService(orderRepository));
+        var orderService = new OrderService(orderRepository,new ProductDomainService(new ProductRepository(DbContext)), new UnitOfDiscountCalculatorDomainService(orderRepository));
         await orderService.ApplyDiscount(new() { Id = order.Id });
         order.TotalFinalPrice.Should().Be(9000);
     }
@@ -33,7 +33,7 @@ public class OrderTests : PersistTest
         var order = await CreateOrder(Guid.NewGuid(),product,1);
         await DbContext.SaveChangesAsync();
         var orderRepository = new OrderRepository(DbContext);
-        var orderService = new OrderService(orderRepository, new UnitOfDiscountCalculatorService(orderRepository));
+        var orderService = new OrderService(orderRepository,new ProductDomainService(new ProductRepository(DbContext)), new UnitOfDiscountCalculatorDomainService(orderRepository));
         await orderService.ApplyDiscount(new() { Id = order.Id });
         order.TotalFinalPrice.Should().Be(10000);
     }
@@ -57,7 +57,7 @@ public class OrderTests : PersistTest
     private async Task<Product> CreateProduct()
     {
         var category = await CreateCategory();
-        var product = ProductFactory.New(category.Id, "test", null, 10000, category);
+        var product = ProductFactory.New(category.Id, "test", null, 10000,5, category);
         await DbContext.Products.AddAsync(product);
         await DbContext.SaveChangesAsync();
         return product;

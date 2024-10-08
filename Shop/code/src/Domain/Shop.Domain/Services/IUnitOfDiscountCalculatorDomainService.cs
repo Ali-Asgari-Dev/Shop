@@ -1,6 +1,6 @@
 namespace Shop.Domain.Services;
 
-public interface IUnitOfDiscountCalculatorService
+public interface IUnitOfDiscountCalculatorDomainService
 {
     int Calculate(Guid customerId);
 }
