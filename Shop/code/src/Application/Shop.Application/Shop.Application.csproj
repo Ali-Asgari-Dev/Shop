@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Dto\Responses\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\Domain\Shop.Domain\Shop.Domain.csproj" />
     </ItemGroup>
 
