@@ -1,0 +1,38 @@
+
+WITH PreviousOrders AS (
+    SELECT
+        o.CustomerId,
+        SUM(p.UnitOfDiscountByPrice) AS TotalDiscountRate
+    FROM [Order] o
+    JOIN [OrderItem] oi ON o.Id = oi.OrderId
+    JOIN [Product] p ON oi.ProductId = p.Id
+    WHERE o.State = 3
+    GROUP BY o.CustomerId
+),
+FirstOrder AS (
+    SELECT
+        o.CustomerId,
+        MIN(o.Id) AS FirstOrderId
+    FROM [Order] o
+    WHERE o.State = 3
+    GROUP BY o.CustomerId
+)
+SELECT
+    o.Id AS OrderId,
+    o.CustomerId,
+    SUM(oi.Price * oi.Count) AS TotalSaleAmount,
+    CASE 
+        WHEN o.Id = fo.FirstOrderId THEN 0  -- اگر اولین سفارش است تخفیف 0
+        ELSE ISNULL(po.TotalDiscountRate, 0)  -- برای بقیه تخفیف اعمال می‌شود
+    END AS DiscountRate,
+    CASE 
+        WHEN o.Id = fo.FirstOrderId THEN 0  -- اگر اولین سفارش است تخفیف 0
+        ELSE (SUM(oi.Price * oi.Count) * ISNULL(po.TotalDiscountRate, 0) / 100)  -- محاسبه تخفیف برای بقیه
+    END AS TotalDiscountAmount
+FROM [Order] o
+JOIN [OrderItem] oi ON o.Id = oi.OrderId
+JOIN [Product] p ON oi.ProductId = p.Id
+LEFT JOIN PreviousOrders po ON o.CustomerId = po.CustomerId
+LEFT JOIN FirstOrder fo ON o.CustomerId = fo.CustomerId
+GROUP BY o.Id, o.CustomerId, fo.FirstOrderId, po.TotalDiscountRate
+ORDER BY o.Id;
